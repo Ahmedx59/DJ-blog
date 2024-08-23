@@ -16,7 +16,24 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path
+from post.views import post_list , post_detail , new_post , edit_post , delete_post
 
 urlpatterns = [
     path('admin/', admin.site.urls),
+    path('blog/', post_list),
+    path('blog/<int:id>' , post_detail),
+    path('blog/<int:id>/edit' , edit_post),
+    path('blog/new' , new_post),
+    path('blog/<int:id>/delete' , delete_post),
+    
+    
 ]
+
+
+# url of static and media
+from django.conf import settings
+from django.conf.urls.static import static
+
+if settings.DEBUG:
+    urlpatterns += static(settings.STATIC_URL , document_root=settings.STATIC_ROOT)
+    urlpatterns += static(settings.MEDIA_URL , document_root=settings.MEDIA_ROOT)
