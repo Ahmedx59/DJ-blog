@@ -1,10 +1,19 @@
 <h2> detail </h2>
+<ul>
 
-<a href="/blog/{{post.id}}/edit"> edit post</a>
-<a href="/blog/{{post.id}}/delete"> delet </a>
-{{post.discription}}
-
-
-<img src="{{post.image.url}}" alt="">
+<li><a href="/blog/{{post.id}}/edit"> edit post</a></li>
+<li><a href="/blog/{{post.id}}/delete"> delet </a></li>
+<li>{{post.discription}}</li>
 
 
+<li><img src="{{post.image.url}}" alt=""></li>
+
+</ul>
+
+<ul>
+        {% for comment in comments %}
+          <li>{{comment.content}}</li> 
+        {% endfor %}
+        
+
+</ul>

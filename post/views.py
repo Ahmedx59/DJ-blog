@@ -1,5 +1,5 @@
 from django.shortcuts import render , redirect
-from .models import Post
+from .models import Post , Comment
 from .Forms import postform
 # Create your views here.
 
@@ -11,8 +11,9 @@ def post_list(request):
 
 
 def post_detail(request,id):
-    object = Post.objects.get(id=id)
-    return render(request , 'post_detail.html',{'post':object})
+    post = Post.objects.get(id=id)
+    object = Comment.objects.filter(post=post)
+    return render(request , 'post_detail.html',{'post':post,'comments':object})
 
 
 
@@ -59,9 +60,6 @@ def delete_post(requset,id):
 
 
 # ________________________________________________________
-
-
-
 
 
 

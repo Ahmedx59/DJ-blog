@@ -25,7 +25,7 @@ urlpatterns = [
     path('blog/<int:id>/edit' , edit_post),
     path('blog/new' , new_post),
     path('blog/<int:id>/delete' , delete_post),
-    
+
     
 ]
 
