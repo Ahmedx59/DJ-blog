@@ -55,3 +55,13 @@ def delete_post(requset,id):
     object = Post.objects.get(id=id)
     object.delete()
     return redirect("/blog/")
+
+
+
+# ________________________________________________________
+
+
+
+
+
+
