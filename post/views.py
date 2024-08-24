@@ -1,6 +1,6 @@
 from django.shortcuts import render , redirect
 from .models import Post , Comment
-from .Forms import postform
+from .Forms import postform , CommentForm
 # Create your views here.
 
 def post_list(request):
@@ -13,7 +13,18 @@ def post_list(request):
 def post_detail(request,id):
     post = Post.objects.get(id=id)
     object = Comment.objects.filter(post=post)
-    return render(request , 'post_detail.html',{'post':post,'comments':object})
+    if request.method == 'POST':
+        form = CommentForm(request.POST)
+        if form.is_valid():
+            my_form = form.save(commit=False)
+            my_form.user = request.user
+            my_form.post = post
+            my_form.save()
+            return redirect(f'/blog/{post.id}')
+
+    else:
+        form = CommentForm()
+    return render(request , 'post_detail.html',{'post':post,'comments':object,'form':form})
 
 
 
@@ -28,6 +39,8 @@ def new_post(request):
             myform.auth = request.user
             myform.save()
             return redirect("/blog/")
+        else:
+            return render(request, 'new.html', {'form': form})
 
     else:
         form = postform()
@@ -42,7 +55,7 @@ def edit_post(request,id):
         form = postform(request.POST,request.FILES,instance=object)
         if form.is_valid():
             form.save()
-            return redirect(F'/blog/{object.id}')
+            return redirect(f'/blog/{object.id}')
 
     else:
         form = postform(instance=object)

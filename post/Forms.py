@@ -1,8 +1,5 @@
 from django import forms
-
-
-
-from .models import Post
+from .models import Post , Comment
 
 
 class postform(forms.ModelForm):
@@ -10,4 +7,7 @@ class postform(forms.ModelForm):
         model = Post
         exclude = ['auth']
 
- 
+class CommentForm(forms.ModelForm):
+    class Meta:
+        model = Comment
+        fields = ['content']
